@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frame Studio – photo frame generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <rect x="2" y="2" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <rect x="8" y="8" width="16" height="16" rx="1.5" fill="currentColor" opacity=".35"/>
+        <path d="M8 21l5-6 4 4 3-3 4 5H8z" fill="currentColor"/>
+      </svg>
+      <span class="brand-name">Frame Studio</span>
+    </div>
+    <button id="downloadBtn" class="btn btn-primary" type="button" disabled>
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Download photo
+    </button>
+  </header>
+
+  <main class="workspace">
+
+    <!-- Left sidebar -->
+    <aside class="sidebar" aria-label="Photo and frame settings">
+
+      <section class="panel">
+        <h2>Photo</h2>
+        <label class="file-drop" for="photoInput">
+          <input id="photoInput" type="file" accept="image/*">
+          <span class="file-drop-title" id="photoName">Choose a photo</span>
+          <span class="file-drop-hint">or drop an image onto the canvas</span>
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>Frame</h2>
+        <div id="frameList" class="frame-list" role="radiogroup" aria-label="Choose a frame"></div>
+        <label class="link-btn" for="frameInput">
+          Add your own PNG frame
+          <input id="frameInput" type="file" accept="image/png">
+        </label>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Adjust</h2>
+          <button id="resetBtn" class="link-btn" type="button">Reset</button>
+        </div>
+
+        <div class="control">
+          <label for="zoom">Zoom</label>
+          <output for="zoom" id="zoomOut">100%</output>
+          <input id="zoom" type="range" min="50" max="400" value="100" step="1">
+        </div>
+        <div class="control">
+          <label for="rotate">Rotate</label>
+          <output for="rotate" id="rotateOut">0°</output>
+          <input id="rotate" type="range" min="-180" max="180" value="0" step="1">
+        </div>
+        <div class="control">
+          <label for="offsetX">Move left / right</label>
+          <output for="offsetX" id="offsetXOut">0</output>
+          <input id="offsetX" type="range" min="-100" max="100" value="0" step="1">
+        </div>
+        <div class="control">
+          <label for="offsetY">Move up / down</label>
+          <output for="offsetY" id="offsetYOut">0</output>
+          <input id="offsetY" type="range" min="-100" max="100" value="0" step="1">
+        </div>
+
+        <div class="control-row">
+          <button id="flipBtn" class="btn btn-quiet" type="button" aria-pressed="false">Flip horizontally</button>
+          <button id="rotate90Btn" class="btn btn-quiet" type="button">Rotate 90°</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control">
+          <label for="brightness">Brightness</label>
+          <output for="brightness" id="brightnessOut">100%</output>
+          <input id="brightness" type="range" min="40" max="160" value="100" step="1">
+        </div>
+        <div class="control">
+          <label for="contrast">Contrast</label>
+          <output for="contrast" id="contrastOut">100%</output>
+          <input id="contrast" type="range" min="40" max="160" value="100" step="1">
+        </div>
+        <div class="control">
+          <label for="saturation">Saturation</label>
+          <output for="saturation" id="saturationOut">100%</output>
+          <input id="saturation" type="range" min="0" max="200" value="100" step="1">
+        </div>
+        <div class="control">
+          <label for="grayscale">Black &amp; white</label>
+          <output for="grayscale" id="grayscaleOut">0%</output>
+          <input id="grayscale" type="range" min="0" max="100" value="0" step="1">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control control-inline">
+          <label for="bgColor">Background behind photo</label>
+          <input id="bgColor" type="color" value="#ffffff">
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Right: canvas -->
+    <section class="stage" id="stage" aria-label="Preview">
+      <div class="canvas-wrap">
+        <canvas id="canvas" width="1200" height="1200"></canvas>
+        <div class="empty-state" id="emptyState">
+          <p class="empty-title">Your framed photo appears here</p>
+          <p class="empty-hint">Choose a photo on the left, or drop one onto this area.</p>
+        </div>
+      </div>
+      <p class="stage-hint" id="stageHint">Drag the photo to reposition it. Scroll to zoom.</p>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
